@@ -1,6 +1,10 @@
 from turtle import *
 STARTING_POSITIONS = [(0, 0), (-20, 0), (-40, 0)]
 # starting positions for the initial 3 segments of the snake body
+UP = 90
+DOWN = 270
+LEFT = 180
+RIGHT = 0
 
 class Snake:
 
@@ -8,6 +12,7 @@ class Snake:
         self.segments = []
         # list of all the segments of the snake body
         self.create_snake()
+        self.head = self.segments[0]
 
     def create_snake(self):
         # initializes the starting position of the first
@@ -26,3 +31,18 @@ class Snake:
             new_y = self.segments[seg_num - 1].ycor()
             self.segments[seg_num].goto(new_x, new_y)
         self.segments[0].forward(20)
+
+    def up(self):
+        if self.head.heading() != DOWN:
+            self.segments[0].setheading(UP)
+
+    def down(self):
+        if self.head.heading() != UP:
+            self.segments[0].setheading(DOWN)
+
+    def left(self):
+        if self.head.heading() != RIGHT:
+            self.segments[0].setheading(LEFT)
+    def right(self):
+        if self.head.heading() != LEFT:
+            self.segments[0].setheading(RIGHT)
