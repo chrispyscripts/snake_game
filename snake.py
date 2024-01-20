@@ -6,6 +6,7 @@ DOWN = 270
 LEFT = 180
 RIGHT = 0
 
+
 class Snake:
 
     def __init__(self):
@@ -18,14 +19,23 @@ class Snake:
         # initializes the starting position of the first
         # three segments of the snake body
         for x in STARTING_POSITIONS:
-            segment = Turtle("square")
-            segment.color("white")
-            segment.penup()
-            segment.goto(x)
-            self.segments.append(segment)
+            self.add_body(x)
+
+    def add_body(self, position):
+        # generates a new snake body segment
+        segment = Turtle("square")
+        segment.color("white")
+        segment.penup()
+        segment.goto(position)
+        self.segments.append(segment)
+
+    def extend(self):
+        # adds a new body to the snake to the last position of the snake
+        self.add_body(self.segments[-1].position())
+
     def move(self):
         for seg_num in range(len(self.segments) - 1, 0, -1):
-            # sorts through all of the segments of the snake, starting with the
+            # sorts through all the segments of the snake, starting with the
             # last segment in the list, and moves them all one spot forward
             new_x = self.segments[seg_num - 1].xcor()
             new_y = self.segments[seg_num - 1].ycor()
@@ -43,12 +53,7 @@ class Snake:
     def left(self):
         if self.head.heading() != RIGHT:
             self.segments[0].setheading(LEFT)
+
     def right(self):
         if self.head.heading() != LEFT:
             self.segments[0].setheading(RIGHT)
-
-    def add_body(self):
-        segment = Turtle("square")
-        segment.color("white")
-        segment.penup()
-        self.segments.append(segment)
