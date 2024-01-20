@@ -20,15 +20,18 @@ screen.onkey(snake.right, "Right")
 
 game_on = True
 while game_on:
-    screen.update()
-    time.sleep(0.1)
     snake.move()
-    # screen.update() allows the screen to update every time this loop
-    # occurs, eliminating the lag of movement of each snake segment
-
     if snake.head.distance(food) < 15:
         food.refresh()
         scoreboard.add_point()
+        snake.add_body()
+    screen.update()
+    time.sleep(0.1)
+    # screen.update() allows the screen to update every time this loop
+    # occurs, eliminating the lag of movement of each snake segment
+    if snake.head.xcor() > 320 or snake.head.xcor() < -320 or snake.head.ycor() > 320 or snake.head.ycor() < -320:
+        game_on = False
+        scoreboard.game_over()
 
 
 screen.exitonclick()
